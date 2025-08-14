@@ -1,0 +1,97 @@
+# This file specifies which files and directories should be excluded from
+# Prettier formatting. Useful for generated files, dependencies, and files
+# with specific formatting requirements.
+
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Build outputs
+dist/
+build/
+*.tsbuildinfo
+
+# Database related
+ 
+# Drizzle generated files (auto-generated, shouldn't be manually formatted)
+drizzle/
+**/drizzle/
+# Database data directory (from Docker setup)
+data/
+**/data/
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Docker related
+ 
+# Docker volumes and data
+.docker/
+docker-data/
+
+# File uploads (from our project requirements)
+public/uploads/
+**/uploads/
+public/images/
+**/images/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+
+# Package manager files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+bun.lockb
+
+# Coverage and test reports
+coverage/
+*.lcov
+.nyc_output/
+test-results/
+playwright-report/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.temp
+
+# Documentation (if you want to exclude from formatting)
+
+# Uncomment if you have documentation that shouldn't be formatted
+# docs/
+*.md
+
+# Generated TypeScript declaration files
+ 
+*.d.ts
+!src/**/*.d.ts

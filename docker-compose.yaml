@@ -1,0 +1,57 @@
+# ============================================================================
+# Juno Backend - Docker Compose Configuration
+# ============================================================================
+# Simplified setup using Drizzle Studio for database management instead of DBGate.
+# Drizzle Studio provides better integration with Drizzle ORM and TypeScript.
+#
+# Usage:
+#   docker compose up -d    # Start PostgreSQL service
+#   docker compose down     # Stop and remove containers
+#   bun drizzle-kit studio  # Launch Drizzle Studio for database management
+# ============================================================================
+
+services:
+  # ==========================================================================
+  # PostgreSQL Database Service
+  # ==========================================================================
+  # Primary database for storing users, projects, tasks, and authentication data.
+  # Uses Alpine Linux for minimal footprint and better security.
+  #
+  # Health checks ensure the database is ready before application connections.
+  # Data is persisted locally in ./data/db directory.
+  # ==========================================================================
+  db:
+    # Using Alpine variant for smaller image size and better security
+    image: postgres:alpine
+    container_name: postgres
+
+    # Always restart unless explicitly stopped - important for development
+    restart: always
+
+    # Environment variables loaded from .env file
+    # Required: DB_NAME, DB_USER, DB_PASSWORD in .env
+    environment:
+      POSTGRES_DB: ${DB_NAME} # Database name for the application
+      POSTGRES_USER: ${DB_USER} # Database username
+      POSTGRES_PASSWORD: ${DB_PASSWORD} # Database password
+
+    # Port mapping: host:container
+    # Make sure DB_PORT in .env doesn't conflict with other services
+    ports:
+      - ${DB_PORT}:5432
+
+    # Health check configuration
+    # Ensures database is ready to accept connections before marking as healthy
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -d $${DB_NAME} -U $${DB_USER}"]
+      interval: 10s # Check every 10 seconds
+      timeout: 30s # Wait up to 30 seconds for response
+      retries: 5 # Retry 5 times before marking as unhealthy
+
+    # Volume mapping for data persistence
+    # Database data survives container recreation
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+
+    # Don't attach to terminal output by default
+    attach: false
