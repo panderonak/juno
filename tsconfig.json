@@ -24,6 +24,20 @@
     // Some stricter flags (disabled by default)
     "noUnusedLocals": false,
     "noUnusedParameters": false,
-    "noPropertyAccessFromIndexSignature": false
-  }
+    "noPropertyAccessFromIndexSignature": false,
+
+    // ADD THESE LINES FOR PATH ALIASES
+    "baseUrl": ".",
+    "paths": {
+      "@/app": ["./src/app.ts"],
+      "@/controllers/*": ["./src/controllers/*"],
+      "@/middlewares/*": ["./src/middlewares/*"],
+      "@/models/*": ["./src/models/*"],
+      "@/routes/*": ["./src/routes/*"],
+      "@/utils/*": ["./src/utils/*"]
+    }
+  },
+  // ADD THESE LINES TO SPECIFY WHICH FILES TO INCLUDE
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
 }
